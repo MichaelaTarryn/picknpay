@@ -11,7 +11,7 @@ const app = express();
 // Express router
 const router = express.Router();
 // Configuration 
-const port = parseInt(process.env.Port) || 4000;
+const port = parseInt(process.env.PORT) || 4000;
 app.use(
     express.static('public'),
     router, cors(), express.json(), express.urlencoded({
