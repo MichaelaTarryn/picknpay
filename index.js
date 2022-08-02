@@ -4,6 +4,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const db = require('./config/dbconn');
+const path = require('path');
 const {genSalt, hash} = require('bcrypt');
 // Express app
 const app = express();
@@ -21,6 +22,9 @@ app.listen(port, ()=> {
     console.log(`Server is running on port ${port}`);
 });
 
+router.get('/', (req, res)=> {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+})
 // User registration
 router.post('/register', bodyParser.json(), async (req, res)=> {
     const bd = req.body; 
