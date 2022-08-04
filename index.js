@@ -4,16 +4,16 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const db = require('./config/dbconn');
-const path = require('path');
 const {genSalt, hash} = require('bcrypt');
+const path = require('path');
 // Express app
 const app = express();
 // Express router
 const router = express.Router();
 // Configuration 
-const port = parseInt(process.env.PORT) || 4000;
+const port = parseInt(process.env.Port) || 4000;
 app.use(
-    express.static('views'),
+    express.static("public"),
     router, cors(), express.json(), express.urlencoded({
     extended: true
 }));
@@ -22,8 +22,9 @@ app.listen(port, ()=> {
     console.log(`Server is running on port ${port}`);
 });
 
+// Home page
 router.get('/', (req, res)=> {
-    res.sendFile(path.join(__dirname, 'views', 'HOME.vue'));
+    res.status(200).sendFile(path.join(__dirname, 'views', 'index.html'));
 })
 // User registration
 router.post('/register', bodyParser.json(), async (req, res)=> {
@@ -42,7 +43,7 @@ router.post('/register', bodyParser.json(), async (req, res)=> {
         [bd.firstname, bd.lastname, bd.gender, bd.address, bd.email, bd.userpassword],
         (err, results)=> {
             if(err) throw err;
-            res.send(`number of affected row/s:  ${results.affectedRows}`);
+            res.send(`number of affected row/s: ${results.affectedRows}`);
         })
 });
 // Login
@@ -65,23 +66,7 @@ compare(req.body.userpassword, results.userpassword)
 ======
 require('crypto').randomBytes(64).toString('hex')
 */
-});
-// Fetch the users
-router.get('/users', (req, res)=> {
-    // Query
-    const strQry = 
-    `
-    SELECT *
-    FROM users;
-    `;
-    db.query(strQry, (err, results)=> {
-        if(err) throw err;
-        res.json({
-            status: 200,
-            results: results
-        })
-    })
-});
+})
 
 // Create new products
 router.post('/products', bodyParser.json(), (req, res)=> {
@@ -93,7 +78,6 @@ router.post('/products', bodyParser.json(), (req, res)=> {
     INSERT INTO products(prodName, prodUrl, quantity, price, totalamount, dateCreated)
     VALUES(?, ?, ?, ?, ?, ?);
     `;
-    //
     db.query(strQry, 
         [bd.prodName, bd.prodUrl, bd.quantity, bd.price, bd.totalamount, bd.dateCreated],
         (err, results)=> {
