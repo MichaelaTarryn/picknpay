@@ -3,7 +3,7 @@
         <div id="home">
         <img  class="img-logo" src="./assets/images/picknpay.jpg" alt=""> 
         <input  id="input" type="text" placeholder="Search..">
-        <div id="buttons"> <button id="login"> Login</button> <button id="Register"> Register</button></div>
+        <div id="buttons"> <a href="../public/login.html" target="_blank"></a> <button id="Register"> Register</button></div>
        
     </div>
     <div id="landing">
