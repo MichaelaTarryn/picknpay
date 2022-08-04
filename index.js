@@ -13,7 +13,7 @@ const router = express.Router();
 // Configuration 
 const port = parseInt(process.env.PORT) || 4000;
 app.use(
-    express.static('public'),
+    express.static('views'),
     router, cors(), express.json(), express.urlencoded({
     extended: true
 }));
@@ -23,7 +23,7 @@ app.listen(port, ()=> {
 });
 
 router.get('/', (req, res)=> {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+    res.sendFile(path.join(__dirname, 'views', 'HOME.vue'));
 })
 // User registration
 router.post('/register', bodyParser.json(), async (req, res)=> {
